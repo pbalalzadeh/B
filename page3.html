@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNM Agency | Growth Marketing for Every Business</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050508;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 16px 24px;
+            background: rgba(20, 20, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #00f3ff;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                gap: 32px;
+            }
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00f3ff;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00f3ff, #bc13fe);
+            color: black;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 48px;
+            position: relative;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            background: #00f3ff;
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            background: #bc13fe;
+            width: 350px;
+            height: 350px;
+            top: 30%;
+            right: -100px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            background: #0aff0a;
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            left: 30%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 9999px;
+            margin-bottom: 32px;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #0aff0a;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .badge-text {
+            font-size: 12px;
+            color: #00f3ff;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 64px;
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00f3ff, #bc13fe, #0aff0a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #9ca3af;
+            max-width: 700px;
+            margin: 0 auto 32px;
+            line-height: 1.6;
+        }
+
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .cat-btn {
+            padding: 12px 24px;
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .cat-btn:hover {
+            border-color: #00f3ff;
+            transform: translateY(-2px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 900px;
+            margin: 0 auto 48px;
+        }
+
+        @media (min-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #9ca3af;
+            text-transform: uppercase;
+        }
+
+        .cyan { color: #00f3ff; }
+        .purple { color: #bc13ff; }
+        .green { color: #0aff0a; }
+        .pink { color: #ff006e; }
+
+        /* Section Styles */
+        section {
+            padding: 96px 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #9ca3af;
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Vertical Cards */
+        .verticals-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .verticals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .verticals-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .vertical-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.4s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vertical-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00f3ff, #bc13fe);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .vertical-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 243, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 243, 255, 0.1);
+        }
+
+        .vertical-card:hover::before {
+            opacity: 1;
+        }
+
+        .vertical-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .vertical-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .vertical-desc {
+            font-size: 14px;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        /* Services Tabs */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #00f3ff, #bc13fe);
+            color: black;
+            font-weight: bold;
+        }
+
+        .tab:hover:not(.active) {
+            border-color: rgba(0, 243, 255, 0.5);
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .service-card {
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.4s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .service-icon {
+            font-size: 28px;
+        }
+
+        .service-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00f3ff;
+        }
+
+        .service-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .service-desc {
+            font-size: 13px;
+            color: #9ca3af;
+            line-height: 1.5;
+        }
+
+        .service-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 9999px;
+            font-size: 11px;
+            color: #00f3ff;
+            margin-top: 12px;
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-panel {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group label {
+            display: block;
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        select:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result-box {
+            display: none;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(188, 19, 254, 0.1));
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .price-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00f3ff;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: #00f3ff;
+            color: black;
+            border: none;
+            border-radius: 9999px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-gradient {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, #00f3ff, #bc13fe);
+            color: black;
+            border: none;
+            border-radius: 9999px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s;
+        }
+
+        .btn-gradient:hover {
+            transform: scale(1.05);
+        }
+
+        .quote-summary {
+            display: none;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quote-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .quote-price {
+            color: #00f3ff;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #ff006e;
+            cursor: pointer;
+            font-size: 20px;
+            margin-left: 12px;
+        }
+
+        .quote-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 16px;
+        }
+
+        /* Pricing Tables */
+        .pricing-section {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .category {
+            margin-bottom: 32px;
+        }
+
+        .category-header {
+            width: 100%;
+            padding: 24px;
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-header:hover {
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(188, 19, 254, 0.2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .category-content.open {
+            max-height: 3000px;
+            opacity: 1;
+        }
+
+        .service-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            margin-left: 0;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .service-row {
+                margin-left: 64px;
+            }
+        }
+
+        .service-info {
+            flex: 1;
+        }
+
+        .service-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .service-note {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        .price-tag {
+            color: #00f3ff;
+            font-weight: bold;
+            font-size: 18px;
+            white-space: nowrap;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(188, 19, 254, 0.1));
+        }
+
+        .cta-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 24px;
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .footer-logo span {
+            color: #00f3ff;
+        }
+
+        .footer-note {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Package Cards */
+        .packages-grid {
+            display: grid;
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .packages-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .packages-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .package-card {
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 243, 255, 0.3);
+        }
+
+        .package-card.featured {
+            border: 2px solid rgba(0, 243, 255, 0.5);
+        }
+
+        .package-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #00f3ff, #bc13fe);
+            color: black;
+            padding: 4px 16px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .package-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .package-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .package-price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .feature-list li {
+            padding-left: 1.5rem;
+            margin-bottom: 8px;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #00f3ff;
+        }
+
+        .vertical-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .badge-crypto { background: rgba(0, 243, 255, 0.2); color: #00f3ff; }
+        .badge-ecommerce { background: rgba(188, 19, 254, 0.2); color: #bc13fe; }
+        .badge-creator { background: rgba(255, 0, 110, 0.2); color: #ff006e; }
+        .badge-business { background: rgba(10, 255, 10, 0.2); color: #0aff0a; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MNM<span>AGENCY</span></div>
+        <div class="nav-links">
+            <a href="#verticals">Industries</a>
+            <a href="#services">Services</a>
+            <a href="#calculator">Calculator</a>
+            <a href="#pricing">Pricing</a>
+        </div>
+        <a href="#calculator" class="cta-button">Get Quote</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        
+        <div class="hero-content">
+            <div class="badge">
+                <div class="pulse"></div>
+                <span class="badge-text">Full-Service Growth Agency</span>
+            </div>
+            
+            <h1>Marketing That <span class="gradient-text">Scales</span> Every Business</h1>
+            
+            <p class="subtitle">
+                From crypto startups to e-commerce brands, Instagram creators to consultants — we provide tailored growth strategies, paid advertising, and automation that drives real revenue.
+            </p>
+            
+            <div class="category-buttons">
+                <a href="#crypto" class="cat-btn">🚀 Crypto & Web3</a>
+                <a href="#ecommerce" class="cat-btn">🛒 E-Commerce</a>
+                <a href="#creators" class="cat-btn">📸 Creators</a>
+                <a href="#business" class="cat-btn">💼 Business</a>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number cyan">500+</div>
+                    <div class="stat-label">Clients Served</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number purple">4</div>
+                    <div class="stat-label">Industries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number green">$10M+</div>
+                    <div class="stat-label">Revenue Generated</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number pink">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section id="verticals">
+        <div class="container">
+            <h2 class="section-title">Who We <span class="gradient-text">Serve</span></h2>
+            <p class="section-subtitle">Specialized marketing solutions tailored to your industry</p>
+            
+            <div class="verticals-grid">
+                <div class="vertical-card" onclick="filterByVertical('crypto')">
+                    <div class="vertical-icon">🚀</div>
+                    <h3 class="vertical-title">Crypto & Web3</h3>
+                    <p class="vertical-desc">Exchange listings, trending campaigns, community building, and viral marketing for blockchain projects and token launches.</p>
+                </div>
+                
+                <div class="vertical-card" onclick="filterByVertical('ecommerce')">
+                    <div class="vertical-icon">🛒</div>
+                    <h3 class="vertical-title">E-Commerce</h3>
+                    <p class="vertical-desc">Shopify optimization, Facebook/Instagram ads, email marketing, and conversion rate optimization for online stores.</p>
+                </div>
+                
+                <div class="vertical-card" onclick="filterByVertical('creators')">
+                    <div class="vertical-icon">📸</div>
+                    <h3 class="vertical-title">Creators & Influencers</h3>
+                    <p class="vertical-desc">Instagram growth, DM automation, monetization strategies, brand partnerships, and content strategy.</p>
+                </div>
+                
+                <div class="vertical-card" onclick="filterByVertical('business')">
+                    <div class="vertical-icon">💼</div>
+                    <h3 class="vertical-title">Consultants & SMBs</h3>
+                    <p class="vertical-desc">Lead generation, local SEO, LinkedIn marketing, appointment setting, and B2B outreach systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" style="background: rgba(0, 0, 0, 0.3);">
+        <div class="container">
+            <h2 class="section-title">Our <span class="gradient-text">Services</span></h2>
+            <p class="section-subtitle">Browse by category or filter by your industry</p>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="filterServices('all')">All Services</button>
+                <button class="tab" onclick="filterServices('paid')">Paid Ads</button>
+                <button class="tab" onclick="filterServices('social')">Social Media</button>
+                <button class="tab" onclick="filterServices('automation')">Automation</button>
+                <button class="tab" onclick="filterServices('seo')">SEO & Content</button>
+                <button class="tab" onclick="filterServices('crypto')">🚀 Crypto</button>
+            </div>
+            
+            <div id="services-grid" class="services-grid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">Service <span class="gradient-text">Calculator</span></h2>
+            <p class="section-subtitle">Build your custom package across all industries</p>
+            
+            <div class="glass-panel">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Select Your Industry</label>
+                        <select id="calc-industry" onchange="updateIndustryServices()">
+                            <option value="">Choose Industry...</option>
+                            <option value="crypto">Crypto & Web3</option>
+                            <option value="ecommerce">E-Commerce</option>
+                            <option value="creators">Creators & Influencers</option>
+                            <option value="business">Consultants & SMBs</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Select Service</label>
+                        <select id="calc-service" onchange="calculatePrice()" disabled>
+                            <option value="">Select Industry First...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="calc-result" class="result-box">
+                    <div class="result-header">
+                        <div>
+                            <div style="color: #9ca3af; font-size: 14px; margin-bottom: 4px;">Estimated Investment</div>
+                            <div id="calc-price" class="price-display">$0</div>
+                        </div>
+                        <button onclick="addToQuote()" class="btn-primary">Add to Quote</button>
+                    </div>
+                </div>
+                
+                <div id="quote-summary" class="quote-summary">
+                    <h3 style="font-size: 20px; font-weight: bold; margin-bottom: 16px;">Your Custom Package</h3>
+                    <div id="quote-items"></div>
+                    <div class="quote-total">
+                        <div style="font-size: 20px; font-weight: bold;">
+                            Total Investment: <span id="quote-total" style="color: #00f3ff;">$0</span>
+                        </div>
+                        <button onclick="submitQuote()" class="btn-gradient">Request Proposal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Packages -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Featured <span class="gradient-text">Packages</span></h2>
+            <p class="section-subtitle">Popular bundles designed for maximum ROI</p>
+            
+            <div class="packages-grid">
+                <!-- Crypto Package -->
+                <div class="package-card">
+                    <span class="vertical-badge badge-crypto">🚀 CRYPTO</span>
+                    <div class="package-label" style="color: #00f3ff;">LAUNCH</div>
+                    <h3 class="package-title">Token Launch Package</h3>
+                    <div class="package-price" style="color: #00f3ff;">$4,420</div>
+                    <ul class="feature-list">
+                        <li>Moontok + CnToken Listings</li>
+                        <li>24h Trending Campaign</li>
+                        <li>Community Shillers (100)</li>
+                        <li>CG/CMC Fast Track</li>
+                        <li>Social Media Setup</li>
+                        <li>Press Release (500 sites)</li>
+                    </ul>
+                    <button onclick="addPackage('crypto')" class="btn-primary" style="width: 100%;">Select Package</button>
+                </div>
+                
+                <!-- E-commerce Package -->
+                <div class="package-card featured">
+                    <div class="package-badge">POPULAR</div>
+                    <span class="vertical-badge badge-ecommerce">🛒 E-COMMERCE</span>
+                    <div class="package-label" style="color: #bc13fe;">SCALE</div>
+                    <h3 class="package-title">E-Commerce Growth</h3>
+                    <div class="package-price" style="color: #bc13fe;">$2,499</div>
+                    <ul class="feature-list">
+                        <li>Facebook & Instagram Ads</li>
+                        <li>Google Shopping Setup</li>
+                        <li>Email Marketing Flows</li>
+                        <li>Conversion Optimization</li>
+                        <li>Retargeting Campaigns</li>
+                        <li>Monthly Analytics Report</li>
+                    </ul>
+                    <button onclick="addPackage('ecommerce')" class="btn-gradient" style="width: 100%;">Select Package</button>
+                </div>
+                
+                <!-- Creator Package -->
+                <div class="package-card">
+                    <span class="vertical-badge badge-creator">📸 CREATOR</span>
+                    <div class="package-label" style="color: #ff006e;">GROWTH</div>
+                    <h3 class="package-title">Creator Monetization</h3>
+                    <div class="package-price" style="color: #ff006e;">$499</div>
+                    <ul class="feature-list">
+                        <li>Instagram DM Automation</li>
+                        <li>Comment-to-DM Funnels</li>
+                        <li>Brand Outreach System</li>
+                        <li>Content Strategy</li>
+                        <li>Hashtag Research</li>
+                        <li>Monthly Growth Report</li>
+                    </ul>
+                    <button onclick="addPackage('creator')" class="btn-primary" style="width: 100%; background: #ff006e;">Select Package</button>
+                </div>
+
+                <!-- Business Package -->
+                <div class="package-card">
+                    <span class="vertical-badge badge-business">💼 BUSINESS</span>
+                    <div class="package-label" style="color: #0aff0a;">LEADS</div>
+                    <h3 class="package-title">B2B Lead System</h3>
+                    <div class="package-price" style="color: #0aff0a;">$1,299</div>
+                    <ul class="feature-list">
+                        <li>LinkedIn Outreach Automation</li>
+                        <li>Local SEO Optimization</li>
+                        <li>Appointment Setting</li>
+                        <li>Email Drip Campaigns</li>
+                        <li>Lead Magnet Creation</li>
+                        <li>CRM Integration</li>
+                    </ul>
+                    <button onclick="addPackage('business')" class="btn-primary" style="width: 100%; background: #0aff0a;">Select Package</button>
+                </div>
+
+                <!-- Instagram Growth -->
+                <div class="package-card">
+                    <span class="vertical-badge badge-creator">📸 CREATOR</span>
+                    <div class="package-label" style="color: #ff006e;">VIRAL</div>
+                    <h3 class="package-title">Instagram 10K Growth</h3>
+                    <div class="package-price" style="color: #ff006e;">$299</div>
+                    <ul class="feature-list">
+                        <li>Organic Growth Strategy</li>
+                        <li>Daily Engagement (2hrs)</li>
+                        <li>Targeted Follow/Unfollow</li>
+                        <li>Story Engagement</li>
+                        <li>Competitor Analysis</li>
+                        <li>30-Day Growth Guarantee</li>
+                    </ul>
+                    <button onclick="addPackage('instagram')" class="btn-primary" style="width: 100%; background: #ff006e;">Select Package</button>
+                </div>
+
+                <!-- Full Service -->
+                <div class="package-card featured">
+                    <div class="package-badge">ENTERPRISE</div>
+                    <span class="vertical-badge" style="background: rgba(255,255,255,0.1); color: white;">🏢 ALL-IN</span>
+                    <div class="package-label" style="color: #00f3ff;">DOMINATION</div>
+                    <h3 class="package-title">Full-Service Agency</h3>
+                    <div class="package-price" style="color: #00f3ff;">$5,000</div>
+                    <ul class="feature-list">
+                        <li>Dedicated Account Manager</li>
+                        <li>Multi-Channel Strategy</li>
+                        <li>Unlimited Revisions</li>
+                        <li>Weekly Strategy Calls</li>
+                        <li>Priority Support</li>
+                        <li>Custom Integrations</li>
+                    </ul>
+                    <button onclick="addPackage('enterprise')" class="btn-gradient" style="width: 100%;">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Pricing -->
+    <section class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Complete <span class="gradient-text">Price List</span></h2>
+            <p class="section-subtitle">Transparent pricing across all service categories</p>
+            
+            <!-- Crypto Services -->
+            <div id="crypto" class="category">
+                <div class="category-header" onclick="toggleCategory('cat-crypto', 'arrow-crypto')">
+                    <div class="category-title">
+                        <div class="category-icon">🚀</div>
+                        <div>
+                            <h3>Crypto & Web3 Marketing</h3>
+                            <p style="color: #9ca3af; font-size: 14px;">Listings, trending, and community building</p>
+                        </div>
+                    </div>
+                    <svg id="arrow-crypto" style="width: 24px; height: 24px; transition: transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
+                <div id="cat-crypto" class="category-content open">
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">CG Listing (Fast Track)</div>
+                        </div>
+                        <span class="price-tag">$845</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">CMC Listing (Fast Track)</div>
+                        </div>
+                        <span class="price-tag">$7,020</span>
+                    </div>
+                    <div class="service-row" style="border: 1px solid rgba(0, 243, 255, 0.3);">
+                        <div class="service-info">
+                            <div class="service-name"><strong>Complete Listings Package</strong></div>
+                            <div class="service-note">8 platforms + social push</div>
+                        </div>
+                        <span class="price-tag">$4,420</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">24h Trending Package</div>
+                            <div class="service-note">Solscan, GeckoTerminal, Birdeye</div>
+                        </div>
+                        <span class="price-tag">$4,420</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Web3 Wallet Integration</div>
+                            <div class="service-note">Ledger, Bitget, Binance, OKX</div>
+                        </div>
+                        <span class="price-tag">$5,850</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Community Shillers (Standard)</div>
+                            <div class="service-note">100 shillers, 1 week</div>
+                        </div>
+                        <span class="price-tag">$1,300</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Press Release (500+ sites)</div>
+                        </div>
+                        <span class="price-tag">$975</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-commerce Services -->
+            <div id="ecommerce" class="category">
+                <div class="category-header" onclick="toggleCategory('cat-ecommerce', 'arrow-ecommerce')">
+                    <div class="category-title">
+                        <div class="category-icon" style="background: linear-gradient(135deg, rgba(188, 19, 254, 0.2), rgba(188, 19, 254, 0.2));">🛒</div>
+                        <div>
+                            <h3>E-Commerce Marketing</h3>
+                            <p style="color: #9ca3af; font-size: 14px;">Paid ads, email flows, and CRO</p>
+                        </div>
+                    </div>
+                    <svg id="arrow-ecommerce" style="width: 24px; height: 24px; transition: transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
+                <div id="cat-ecommerce" class="category-content">
+                    <div class="service-row" style="border: 1px solid rgba(188, 19, 254, 0.3);">
+                        <div class="service-info">
+                            <div class="service-name"><strong>Meta Ads Management</strong></div>
+                            <div class="service-note">Facebook + Instagram, includes creative</div>
+                        </div>
+                        <span class="price-tag" style="color: #bc13fe;">$1,499/mo</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Google Ads Setup & Management</div>
+                        </div>
+                        <span class="price-tag">$1,299/mo</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Google Shopping Optimization</div>
+                        </div>
+                        <span class="price-tag">$899</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Email Marketing Flows (5 flows)</div>
+                            <div class="service-note">Welcome, abandoned cart, post-purchase</div>
+                        </div>
+                        <span class="price-tag">$1,100</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Shopify Store Optimization</div>
+                        </div>
+                        <span class="price-tag">$2,500</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Conversion Rate Audit</div>
+                        </div>
+                        <span class="price-tag">$650</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Influencer Outreach (20 micro)</div>
+                        </div>
+                        <span class="price-tag">$800</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creator Services -->
+            <div id="creators" class="category">
+                <div class="category-header" onclick="toggleCategory('cat-creators', 'arrow-creators')">
+                    <div class="category-title">
+                        <div class="category-icon" style="background: linear-gradient(135deg, rgba(255, 0, 110, 0.2), rgba(255, 0, 110, 0.2));">📸</div>
+                        <div>
+                            <h3>Creator & Influencer Growth</h3>
+                            <p style="color: #9ca3af; font-size: 14px;">Instagram automation and monetization</p>
+                        </div>
+                    </div>
+                    <svg id="arrow-creators" style="width: 24px; height: 24px; transition: transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
+                <div id="cat-creators" class="category-content">
+                    <div class="service-row" style="border: 1px solid rgba(255, 0, 110, 0.3);">
+                        <div class="service-info">
+                            <div class="service-name"><strong>DM Automation Setup</strong></div>
+                            <div class="service-note">Comment-to-DM, story replies, auto-responses</div>
+                        </div>
+                        <span class="price-tag" style="color: #ff006e;">$499/mo</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Organic Growth Management</div>
+                            <div class="service-note">Daily engagement, targeted outreach</div>
+                        </div>
+                        <span class="price-tag">$299/mo</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Brand Partnership Outreach</div>
+                            <div class="service-note">10 brands contacted per week</div>
+                        </div>
+                        <span class="price-tag">$450/mo</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Content Strategy & Calendar</div>
+                        </div>
+                        <span class="price-tag">$650</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Hashtag Research (30 days)</div>
+                        </div>
+                        <span class="price-tag">$150</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Reels Editing (10 videos)</div>
+                        </div>
+                        <span class="price-tag">$350</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Services -->
+            <div id="business" class="category">
+                <div class="category-header" onclick="toggleCategory('cat-business', 'arrow-business')">
+                    <div class="category-title">
+                        <div class="category-icon" style="background: linear-gradient(135deg, rgba(10, 255, 10, 0.2), rgba(10, 255, 10, 0.2));">💼</div>
+                        <div>
+                            <h3>Consultants & Small Business</h3>
+                            <p style="color: #9ca3af; font-size: 14px;">Lead generation and local marketing</p>
+                        </div>
+                    </div>
+                    <svg id="arrow-business" style="width: 24px; height: 24px; transition: transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
+                <div id="cat-business" class="category-content">
+                    <div class="service-row" style="border: 1px solid rgba(10, 255, 10, 0.3);">
+                        <div class="service-info">
+                            <div class="service-name"><strong>LinkedIn Lead Generation</strong></div>
+                            <div class="service-note">Outreach automation, 500 connects/month</div>
+                        </div>
+                        <span class="price-tag" style="color: #0aff0a;">$799/mo</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Local SEO Package</div>
+                            <div class="service-note">GMB optimization, citations, reviews</div>
+                        </div>
+                        <span class="price-tag">$650/mo</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Appointment Setting System</div>
+                        </div>
+                        <span class="price-tag">$950 setup</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Website Design (5 pages)</div>
+                        </div>
+                        <span class="price-tag">$1,800</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Email Drip Campaign (5 emails)</div>
+                        </div>
+                        <span class="price-tag">$450</span>
+                    </div>
+                    <div class="service-row">
+                        <div class="service-info">
+                            <div class="service-name">Lead Magnet Creation</div>
+                        </div>
+                        <span class="price-tag">$350</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to <span class="gradient-text">Scale</span>?</h2>
+            <p style="font-size: 18px; color: #d1d5db; max-width: 600px; margin: 0 auto 32px;">
+                Whether you're launching a token, scaling your store, or growing your personal brand — we have the systems to make it happen.
+            </p>
+            <div class="cta-buttons">
+                <a href="#calculator" class="btn-primary" style="text-decoration: none;">Calculate Investment</a>
+                <a href="https://t.me/yourusername" target="_blank" class="cat-btn" style="font-size: 16px; background: rgba(255,255,255,0.1);">Chat on Telegram</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">MNM<span>AGENCY</span></div>
+            <div>
+                <div class="footer-note">© 2025 MNM Agency. All rights reserved.</div>
+                <div style="color: #444; font-size: 12px; margin-top: 4px;">Serving Crypto, E-commerce, Creators & Businesses Worldwide</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Complete Service Database
+        const servicesDB = {
+            crypto: [
+                {name: "CG Listing (Fast Track)", price: 845, category: "crypto", icon: "🚀"},
+                {name: "CMC Listing (Fast Track)", price: 7020, category: "crypto", icon: "🚀"},
+                {name: "Listings Package", price: 4420, category: "crypto", icon: "🚀"},
+                {name: "24h Trending Package", price: 4420, category: "crypto", icon: "🚀"},
+                {name: "Web3 Wallet Package", price: 5850, category: "crypto", icon: "🚀"},
+                {name: "Community Shillers", price: 1300, category: "crypto", icon: "🚀"},
+                {name: "Press Release (500 sites)", price: 975, category: "crypto", icon: "🚀"},
+                {name: "Dexscreener Trending", price: 5200, category: "crypto", icon: "🚀"}
+            ],
+            ecommerce: [
+                {name: "Meta Ads Management", price: 1499, category: "ecommerce", icon: "🛒"},
+                {name: "Google Ads Management", price: 1299, category: "ecommerce", icon: "🛒"},
+                {name: "Google Shopping Setup", price: 899, category: "ecommerce", icon: "🛒"},
+                {name: "Email Marketing Flows", price: 1100, category: "ecommerce", icon: "🛒"},
+                {name: "Shopify Optimization", price: 2500, category: "ecommerce", icon: "🛒"},
+                {name: "CRO Audit", price: 650, category: "ecommerce", icon: "🛒"},
+                {name: "Influencer Outreach", price: 800, category: "ecommerce", icon: "🛒"}
+            ],
+            creators: [
+                {name: "DM Automation Setup", price: 499, category: "creators", icon: "📸"},
+                {name: "Organic Growth Mgmt", price: 299, category: "creators", icon: "📸"},
+                {name: "Brand Partnership Outreach", price: 450, category: "creators", icon: "📸"},
+                {name: "Content Strategy", price: 650, category: "creators", icon: "📸"},
+                {name: "Hashtag Research", price: 150, category: "creators", icon: "📸"},
+                {name: "Reels Editing (10)", price: 350, category: "creators", icon: "📸"}
+            ],
+            business: [
+                {name: "LinkedIn Lead Gen", price: 799, category: "business", icon: "💼"},
+                {name: "Local SEO Package", price: 650, category: "business", icon: "💼"},
+                {name: "Appointment Setting", price: 950, category: "business", icon: "💼"},
+                {name: "Website Design (5pg)", price: 1800, category: "business", icon: "💼"},
+                {name: "Email Drip Campaign", price: 450, category: "business", icon: "💼"},
+                {name: "Lead Magnet Creation", price: 350, category: "business", icon: "💼"}
+            ]
+        };
+
+        // All services flattened for filtering
+        const allServices = [
+            ...servicesDB.crypto,
+            ...servicesDB.ecommerce,
+            ...servicesDB.creators,
+            ...servicesDB.business
+        ];
+
+        // Packages
+        const packages = {
+            crypto: {name: "Token Launch Package", price: 4420},
+            ecommerce: {name: "E-Commerce Growth", price: 2499},
+            creator: {name: "Creator Monetization", price: 499},
+            business: {name: "B2B Lead System", price: 1299},
+            instagram: {name: "Instagram 10K Growth", price: 299},
+            enterprise: {name: "Full-Service Agency", price: 5000}
+        };
+
+        // Quote state
+        let quoteItems = [];
+        let quoteTotal = 0;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            initServices();
+            
+            // Open first category
+            const firstCat = document.getElementById('cat-crypto');
+            if (firstCat) {
+                firstCat.classList.add('open');
+                firstCat.style.maxHeight = firstCat.scrollHeight + 'px';
+            }
+        });
+
+        function initServices() {
+            const grid = document.getElementById('services-grid');
+            const featured = allServices.slice(0, 6);
+            
+            grid.innerHTML = featured.map(service => `
+                <div class="service-card" onclick="addServiceToQuote('${service.name}', ${service.price})">
+                    <div class="service-header">
+                        <div class="service-icon">${service.icon}</div>
+                        <div class="service-price">$${service.price.toLocaleString()}</div>
+                    </div>
+                    <h3 class="service-title">${service.name}</h3>
+                    <p class="service-desc">Click to add to calculator</p>
+                    <span class="service-tag">${service.category.toUpperCase()}</span>
+                </div>
+            `).join('');
+        }
+
+        function filterServices(filter) {
+            // Update tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const grid = document.getElementById('services-grid');
+            let filtered = [];
+            
+            if (filter === 'all') {
+                filtered = allServices;
+            } else if (filter === 'paid') {
+                filtered = allServices.filter(s => 
+                    s.name.includes('Ads') || s.name.includes('Shopping')
+                );
+            } else if (filter === 'social') {
+                filtered = allServices.filter(s => 
+                    s.name.includes('Social') || s.name.includes('Instagram') || s.name.includes('LinkedIn')
+                );
+            } else if (filter === 'automation') {
+                filtered = allServices.filter(s => 
+                    s.name.includes('Automation') || s.name.includes('DM') || s.name.includes('Email')
+                );
+            } else if (filter === 'seo') {
+                filtered = allServices.filter(s => 
+                    s.name.includes('SEO') || s.name.includes('Content')
+                );
+            } else {
+                filtered = allServices.filter(s => s.category === filter);
+            }
+            
+            grid.innerHTML = filtered.slice(0, 6).map(service => `
+                <div class="service-card" onclick="addServiceToQuote('${service.name}', ${service.price})">
+                    <div class="service-header">
+                        <div class="service-icon">${service.icon}</div>
+                        <div class="service-price">$${service.price.toLocaleString()}</div>
+                    </div>
+                    <h3 class="service-title">${service.name}</h3>
+                    <p class="service-desc">Click to add to calculator</p>
+                    <span class="service-tag">${service.category.toUpperCase()}</span>
+                </div>
+            `).join('');
+        }
+
+        function filterByVertical(vertical) {
+            document.getElementById('calc-industry').value = vertical;
+            updateIndustryServices();
+            document.getElementById('calculator').scrollIntoView({behavior: 'smooth'});
+        }
+
+        function updateIndustryServices() {
+            const industry = document.getElementById('calc-industry').value;
+            const serviceSelect = document.getElementById('calc-service');
+            
+            if (!industry) {
+                serviceSelect.disabled = true;
+                serviceSelect.innerHTML = '<option value="">Select Industry First...</option>';
+                return;
+            }
+            
+            serviceSelect.disabled = false;
+            serviceSelect.innerHTML = '<option value="">Choose Service...</option>';
+            
+            servicesDB[industry].forEach(service => {
+                const option = document.createElement('option');
+                option.value = service.price;
+                option.setAttribute('data-name', service.name);
+                option.textContent = `${service.name} - $${service.price.toLocaleString()}`;
+                serviceSelect.appendChild(option);
+            });
+            
+            document.getElementById('calc-result').style.display = 'none';
+        }
+
+        function calculatePrice() {
+            const select = document.getElementById('calc-service');
+            const option = select.options[select.selectedIndex];
+            const price = option.value;
+            
+            if (price) {
+                document.getElementById('calc-price').textContent = '$' + parseInt(price).toLocaleString();
+                document.getElementById('calc-result').style.display = 'block';
+            }
+        }
+
+        function addToQuote() {
+            const select = document.getElementById('calc-service');
+            const option = select.options[select.selectedIndex];
+            const name = option.getAttribute('data-name');
+            const price = parseInt(option.value);
+            
+            if (!name || !price) return;
+            
+            quoteItems.push({name, price});
+            quoteTotal += price;
+            updateQuoteDisplay();
+        }
+
+        function addServiceToQuote(name, price) {
+            quoteItems.push({name, price});
+            quoteTotal += price;
+            updateQuoteDisplay();
+            document.getElementById('calculator').scrollIntoView({behavior: 'smooth'});
+        }
+
+        function addPackage(type) {
+            const pkg = packages[type];
+            quoteItems.push({name: pkg.name, price: pkg.price});
+            quoteTotal += pkg.price;
+            updateQuoteDisplay();
+            document.getElementById('calculator').scrollIntoView({behavior: 'smooth'});
+        }
+
+        function updateQuoteDisplay() {
+            const summary = document.getElementById('quote-summary');
+            const itemsList = document.getElementById('quote-items');
+            const totalDisplay = document.getElementById('quote-total');
+            
+            if (quoteItems.length === 0) {
+                summary.style.display = 'none';
+                return;
+            }
+            
+            summary.style.display = 'block';
+            
+            itemsList.innerHTML = quoteItems.map((item, index) => `
+                <div class="quote-item">
+                    <span>${item.name}</span>
+                    <div>
+                        <span class="quote-price">$${item.price.toLocaleString()}</span>
+                        <button class="remove-btn" onclick="removeItem(${index})">×</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            totalDisplay.textContent = '$' + quoteTotal.toLocaleString();
+        }
+
+        function removeItem(index) {
+            quoteTotal -= quoteItems[index].price;
+            quoteItems.splice(index, 1);
+            updateQuoteDisplay();
+        }
+
+        function submitQuote() {
+            if (quoteItems.length === 0) return;
+            
+            const message = `Hi MNM Agency! I'm interested in the following services:\n\n${quoteItems.map(i => `• ${i.name}: $${i.price.toLocaleString()}`).join('\n')}\n\nTotal: $${quoteTotal.toLocaleString()}\n\nPlease contact me with next steps.`;
+            
+            window.open(`https://t.me/yourusername?text=${encodeURIComponent(message)}`, '_blank');
+        }
+
+        function toggleCategory(contentId, arrowId) {
+            const content = document.getElementById(contentId);
+            const arrow = document.getElementById(arrowId);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                content.style.maxHeight = '0px';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('open');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        console.log('MNM Agency Loaded - Multi-Vertical Marketing Services');
+    </script>
+
+</body>
+</html>
