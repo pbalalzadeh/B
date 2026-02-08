@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Sales Portal - Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #db2777;
+            --primary-dark: #be185d;
+            --primary-light: #fce7f3;
+            --secondary: #f5e6e0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --bg: #faf7f5;
+            --surface: #ffffff;
+            --text: #2d2d2d;
+            --text-muted: #6b7280;
+            --border: #e5e0dc;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fce7f3 0%, #f5e6e0 100%);
+            padding: 2rem;
+        }
+
+        .login-box {
+            background: var(--surface);
+            border-radius: 24px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(219, 39, 119, 0.3);
+        }
+
+        .login-logo h1 {
+            font-size: 1.75rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-logo p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--bg);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(219, 39, 119, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 2px solid var(--border);
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg);
+            border-color: var(--primary);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 0.875rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .role-option:hover {
+            border-color: var(--primary-light);
+            background: var(--primary-light);
+        }
+
+        .role-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .role-option i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* App Container (Hidden initially) */
+        .app-container {
+            display: none;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        .app-container.show {
+            display: grid;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            width: 280px;
+            overflow-y: auto;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-info {
+            padding: 1rem;
+            background: var(--primary-light);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(219, 39, 119, 0.2);
+        }
+
+        .user-name {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .role-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            padding-left: 0.75rem;
+        }
+
+        .nav-item {
+            padding: 0.875rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .nav-item:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.3);
+        }
+
+        .nav-item.manager-only {
+            position: relative;
+        }
+
+        .nav-item.manager-only::after {
+            content: '👑';
+            margin-left: auto;
+            font-size: 0.8rem;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            padding: 0.875rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .header-left h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-left p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-small {
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-small-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-small-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(219, 39, 119, 0.3);
+        }
+
+        .btn-small-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-small-secondary:hover {
+            background: var(--bg);
+            border-color: var(--primary);
+        }
+
+        /* View Sections */
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .dashboard-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+            color: var(--text);
+        }
+
+        .card-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .card-change.positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .card-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* Entry Form */
+        .entry-form {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-field label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-field input, .form-field select {
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-field input:focus, .form-field select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(219, 39, 119, 0.1);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .product-input {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .product-input:hover {
+            border-color: var(--primary-light);
+        }
+
+        .product-input label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .product-input input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .transaction-row {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .transaction-row:hover {
+            border-color: var(--primary-light);
+        }
+
+        .remove-transaction {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-transaction:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--primary-light);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--primary-dark);
+        }
+
+        tr:hover {
+            background: rgba(219, 39, 119, 0.02);
+        }
+
+        .status-badge {
+            padding: 0.35rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .status-exceeding { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-ontrack { background: rgba(59, 130, 246, 0.1); color: var(--info); }
+        .status-atrisk { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+
+        .agent-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .agent-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        /* Manager Dashboard Specific */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Access Denied Message */
+        .access-denied {
+            background: rgba(239, 68, 68, 0.05);
+            border: 2px dashed var(--danger);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--danger);
+        }
+
+        .access-denied-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <div class="login-logo-icon">💄</div>
+                <h1>Artist Sales Portal</h1>
+                <p>Login to access your dashboard</p>
+            </div>
+
+            <div id="loginError" class="error-message">
+                <span>⚠️</span>
+                <span>Invalid username or password</span>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Select Your Role</label>
+                    <div class="role-selector">
+                        <div class="role-option selected" onclick="selectRole('agent')" id="roleAgent">
+                            <span style="font-size: 2rem;">👤</span>
+                            <div style="font-weight: 700; margin-top: 0.5rem;">Artist</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Enter daily sales</div>
+                        </div>
+                        <div class="role-option" onclick="selectRole('manager')" id="roleManager">
+                            <span style="font-size: 2rem;">👑</span>
+                            <div style="font-weight: 700; margin-top: 0.5rem;">Manager</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Full dashboard access</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="agentSelectGroup">
+                    <label>Select Artist</label>
+                    <select id="artistSelect" onchange="updateLoginCredentials()">
+                        <option value="">-- Select your name --</option>
+                        <option value="vincent">Vincent</option>
+                        <option value="nazarin">Nazarin</option>
+                        <option value="emina">Emina</option>
+                        <option value="vera">Vera</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="managerNameGroup" style="display: none;">
+                    <label>Manager Name</label>
+                    <input type="text" value="Saba" readonly style="background: var(--primary-light); color: var(--primary-dark); font-weight: 700;">
+                </div>
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    <span>Login</span>
+                </button>
+            </form>
+
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+                <p><strong>Demo Credentials:</strong></p>
+                <p>Manager: username "saba" / password "manager123"</p>
+                <p>Artist: username "vincent" / password "artist123"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APPLICATION (Hidden until login) -->
+    <div id="appContainer" class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span style="font-size: 1.5rem;">💄</span>
+                    <span>Artist Portal</span>
+                </div>
+            </div>
+
+            <div class="user-info">
+                <div class="user-name" id="sidebarUserName">User Name</div>
+                <div class="user-role">
+                    <span id="sidebarUserRole">Role</span>
+                    <span class="role-badge" id="sidebarRoleBadge">AGENT</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-title">Daily Operations</div>
+                <div class="nav-item active" onclick="switchView('daily-entry')" id="navDailyEntry">
+                    <span>📝</span>
+                    Daily Sales Entry
+                </div>
+                <div class="nav-item" onclick="switchView('my-performance')" id="navMyPerformance">
+                    <span>📊</span>
+                    My Performance
+                </div>
+            </div>
+
+            <div class="nav-section manager-nav hidden" id="managerNavSection">
+                <div class="nav-title">Management</div>
+                <div class="nav-item manager-only" onclick="switchView('team-dashboard')">
+                    <span>📈</span>
+                    Team Dashboard
+                </div>
+                <div class="nav-item manager-only" onclick="switchView('weekly-reports')">
+                    <span>📅</span>
+                    Weekly Reports
+                </div>
+                <div class="nav-item manager-only" onclick="switchView('monthly-reports')">
+                    <span>📆</span>
+                    Monthly Reports
+                </div>
+                <div class="nav-item manager-only" onclick="switchView('coaching')">
+                    <span>🎯</span>
+                    Coaching Center
+                </div>
+                <div class="nav-item manager-only" onclick="switchView('artists-summary')">
+                    <span>👥</span>
+                    All Artists
+                </div>
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                <span>🚪</span>
+                Logout
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 id="pageTitle">Daily Sales Entry</h1>
+                    <p id="pageSubtitle">Enter your sales for today</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-small btn-small-secondary" onclick="saveDraft()">
+                        💾 Save Draft
+                    </button>
+                    <button class="btn-small btn-small-primary" onclick="submitDay()">
+                        ✓ Submit Day
+                    </button>
+                </div>
+            </header>
+
+            <!-- VIEW: Daily Sales Entry (Available to both) -->
+            <div id="view-daily-entry" class="view-section active">
+                <div class="entry-form animate-in">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Date</label>
+                            <input type="date" id="entryDate" value="2026-02-09">
+                        </div>
+                        <div class="form-field">
+                            <label>Week (KW)</label>
+                            <select id="entryWeek">
+                                <option value="6">Week 6</option>
+                                <option value="7" selected>Week 7</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label>Daily Target</label>
+                            <input type="number" value="800" readonly style="background: var(--bg);">
+                        </div>
+                    </div>
+
+                    <div style="background: var(--primary-light); padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                        <div style="display: flex; gap: 2rem; font-size: 0.9rem; color: var(--primary-dark);">
+                            <span><strong>Reward Target:</strong> €1,200</span>
+                            <span><strong>Magic Target:</strong> €1,500</span>
+                            <span><strong>Carryover:</strong> €320</span>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">Customer Transactions</h3>
+                    
+                    <div id="transactionsContainer">
+                        <!-- Transaction 1 -->
+                        <div class="transaction-row">
+                            <button class="remove-transaction" onclick="this.parentElement.remove()">×</button>
+                            <div class="form-row">
+                                <div class="form-field" style="grid-column: 1 / -1;">
+                                    <label>Customer / Notes</label>
+                                    <input type="text" placeholder="e.g., Walk-in, Appointment, Mrs. Schmidt" value="Walk-in Client">
+                                </div>
+                            </div>
+                            <div class="product-grid">
+                                <div class="product-input">
+                                    <label>Skin</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="2">
+                                    <input type="number" placeholder="€" class="rev-input" value="85">
+                                </div>
+                                <div class="product-input">
+                                    <label>MC</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="1">
+                                    <input type="number" placeholder="€" class="rev-input" value="45">
+                                </div>
+                                <div class="product-input">
+                                    <label>Complexion</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>Foundation</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="1">
+                                    <input type="number" placeholder="€" class="rev-input" value="38">
+                                </div>
+                                <div class="product-input">
+                                    <label>HFF</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>Colours</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="2">
+                                    <input type="number" placeholder="€" class="rev-input" value="52">
+                                </div>
+                                <div class="product-input">
+                                    <label>Lipstick</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="1">
+                                    <input type="number" placeholder="€" class="rev-input" value="28">
+                                </div>
+                                <div class="product-input">
+                                    <label>Mascara</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>Fragrance</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>GWP</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>QT</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>WIN</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>G&G</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                                <div class="product-input">
+                                    <label>Prebook</label>
+                                    <input type="number" placeholder="Units" class="qty-input" value="0">
+                                    <input type="number" placeholder="€" class="rev-input" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="addTransaction()" style="width: 100%; margin-top: 1rem;">
+                        ➕ Add Another Transaction
+                    </button>
+                </div>
+
+                <!-- Daily Summary -->
+                <div class="card animate-in" style="background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary) 100%); border-color: var(--primary);">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-dark);">📊 Today's Summary</h3>
+                    <div class="stats-overview" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="stat-card" style="background: rgba(255,255,255,0.5);">
+                            <div class="stat-value" style="font-size: 1.75rem;">€709</div>
+                            <div class="stat-label">Total Revenue</div>
+                        </div>
+                        <div class="stat-card" style="background: rgba(255,255,255,0.5);">
+                            <div class="stat-value" style="font-size: 1.75rem;">19</div>
+                            <div class="stat-label">Total Units</div>
+                        </div>
+                        <div class="stat-card" style="background: rgba(255,255,255,0.5);">
+                            <div class="stat-value" style="font-size: 1.75rem;">3</div>
+                            <div class="stat-label">Transactions</div>
+                        </div>
+                        <div class="stat-card" style="background: rgba(255,255,255,0.5);">
+                            <div class="stat-value" style="font-size: 1.75rem;">88%</div>
+                            <div class="stat-label">vs Target</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--primary);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 700; color: var(--primary-dark);">Progress to Daily Target (€800)</span>
+                            <span style="font-weight: 800; color: var(--primary);">€709 / €800</span>
+                        </div>
+                        <div style="width: 100%; height: 8px; background: rgba(219, 39, 119, 0.2); border-radius: 4px; overflow: hidden;">
+                            <div style="width: 88.6%; height: 100%; background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: 4px; transition: width 0.6s ease;"></div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+                            💡 Your entries will be compiled into weekly and monthly reports automatically.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: My Performance (Agent only) -->
+            <div id="view-my-performance" class="view-section">
+                <div class="dashboard-grid grid-4 animate-in">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Week Revenue</div>
+                                <div class="card-value">€4,967</div>
+                                <div class="card-change positive">▲ 12% vs last week</div>
+                            </div>
+                            <div style="font-size: 2rem;">💰</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">Transactions</div>
+                                <div class="card-value">21</div>
+                                <div class="card-change positive">▲ 3 vs last week</div>
+                            </div>
+                            <div style="font-size: 2rem;">🛍️</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">ATV</div>
+                                <div class="card-value">€236</div>
+                                <div class="card-change positive">Target: €220 ✓</div>
+                            </div>
+                            <div style="font-size: 2rem;">📈</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">IPT</div>
+                                <div class="card-value">5.8</div>
+                                <div class="card-change positive">▲ 0.4 vs last week</div>
+                            </div>
+                            <div style="font-size: 2rem;">🎯</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card animate-in">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">This Week's Daily Breakdown</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Revenue</th>
+                                    <th>Transactions</th>
+                                    <th>ATV</th>
+                                    <th>Units</th>
+                                    <th>vs Target</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-bold">Monday</td>
+                                    <td>€709</td>
+                                    <td>3</td>
+                                    <td>€236</td>
+                                    <td>19</td>
+                                    <td><span style="color: var(--warning); font-weight: 700;">88%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Tuesday</td>
+                                    <td>€856</td>
+                                    <td>4</td>
+                                    <td>€214</td>
+                                    <td>22</td>
+                                    <td><span style="color: var(--success); font-weight: 700;">107%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Wednesday</td>
+                                    <td>€623</td>
+                                    <td>3</td>
+                                    <td>€208</td>
+                                    <td>16</td>
+                                    <td><span style="color: var(--warning); font-weight: 700;">78%</span></td>
+                                </tr>
+                                <tr style="background: var(--primary-light); font-weight: 700;">
+                                    <td>WEEK TOTAL</td>
+                                    <td>€4,967</td>
+                                    <td>21</td>
+                                    <td>€236</td>
+                                    <td>122</td>
+                                    <td>88.7%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MANAGER ONLY VIEWS -->
+            
+            <!-- VIEW: Team Dashboard (Manager Only) -->
+            <div id="view-team-dashboard" class="view-section">
+                <div class="stats-overview animate-in">
+                    <div class="stat-card">
+                        <div class="stat-value">€28,797</div>
+                        <div class="stat-label">Store Week Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">120</div>
+                        <div class="stat-label">Total Transactions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">€240</div>
+                        <div class="stat-label">Store ATV</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3/5</div>
+                        <div class="stat-label">Artists on Target</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid grid-2 animate-in">
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">Top Performers This Week</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Artist</th>
+                                        <th>Revenue</th>
+                                        <th>Target %</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="agent-cell">
+                                            <div class="agent-avatar">V</div>
+                                            <span class="font-bold">Vera</span>
+                                        </td>
+                                        <td>€6,580</td>
+                                        <td><span style="color: var(--success); font-weight: 700;">117.5%</span></td>
+                                        <td><span class="status-badge status-exceeding">Exceeding</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="agent-cell">
+                                            <div class="agent-avatar" style="background: linear-gradient(135deg, #c084fc, #a855f7);">V</div>
+                                            <span class="font-bold">Vincent</span>
+                                        </td>
+                                        <td>€6,240</td>
+                                        <td><span style="color: var(--success); font-weight: 700;">111.4%</span></td>
+                                        <td><span class="status-badge status-exceeding">Exceeding</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="agent-cell">
+                                            <div class="agent-avatar" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">N</div>
+                                            <span class="font-bold">Nazarin</span>
+                                        </td>
+                                        <td>€5,890</td>
+                                        <td><span style="color: var(--success); font-weight: 700;">105.2%</span></td>
+                                        <td><span class="status-badge status-exceeding">Exceeding</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">Needs Attention</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Artist</th>
+                                        <th>Revenue</th>
+                                        <th>Target %</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: rgba(245, 158, 11, 0.05);">
+                                        <td class="agent-cell">
+                                            <div class="agent-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">E</div>
+                                            <span class="font-bold">Emina</span>
+                                        </td>
+                                        <td>€5,120</td>
+                                        <td><span style="color: var(--warning); font-weight: 700;">91.4%</span></td>
+                                        <td><button class="btn-small btn-small-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Coach</button></td>
+                                    </tr>
+                                    <tr style="background: rgba(239, 68, 68, 0.05);">
+                                        <td class="agent-cell">
+                                            <div class="agent-avatar">S</div>
+                                            <span class="font-bold">Saba (You)</span>
+                                        </td>
+                                        <td>€4,967</td>
+                                        <td><span style="color: var(--warning); font-weight: 700;">88.7%</span></td>
+                                        <td><span style="font-size: 0.85rem; color: var(--text-muted);">Self Review</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: Weekly Reports (Manager Only) -->
+            <div id="view-weekly-reports" class="view-section">
+                <div class="card animate-in">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">Week 6 Performance - All Artists</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Artist</th>
+                                    <th>Revenue</th>
+                                    <th>Target</th>
+                                    <th>Achievement</th>
+                                    <th>Trans</th>
+                                    <th>ATV</th>
+                                    <th>IPT</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #34d399, #10b981);">V</div>
+                                        <span class="font-bold">Vera</span>
+                                    </td>
+                                    <td class="font-bold">€6,580</td>
+                                    <td>€5,600</td>
+                                    <td><span style="color: var(--success); font-weight: 700;">117.5%</span></td>
+                                    <td>27</td>
+                                    <td>€244</td>
+                                    <td>6.1</td>
+                                    <td><span class="status-badge status-exceeding">Exceeding</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #c084fc, #a855f7);">V</div>
+                                        <span class="font-bold">Vincent</span>
+                                    </td>
+                                    <td class="font-bold">€6,240</td>
+                                    <td>€5,600</td>
+                                    <td><span style="color: var(--success); font-weight: 700;">111.4%</span></td>
+                                    <td>26</td>
+                                    <td>€240</td>
+                                    <td>6.2</td>
+                                    <td><span class="status-badge status-exceeding">Exceeding</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">N</div>
+                                        <span class="font-bold">Nazarin</span>
+                                    </td>
+                                    <td class="font-bold">€5,890</td>
+                                    <td>€5,600</td>
+                                    <td><span style="color: var(--success); font-weight: 700;">105.2%</span></td>
+                                    <td>24</td>
+                                    <td>€245</td>
+                                    <td>5.9</td>
+                                    <td><span class="status-badge status-exceeding">Exceeding</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">E</div>
+                                        <span class="font-bold">Emina</span>
+                                    </td>
+                                    <td class="font-bold">€5,120</td>
+                                    <td>€5,600</td>
+                                    <td><span style="color: var(--warning); font-weight: 700;">91.4%</span></td>
+                                    <td>22</td>
+                                    <td>€233</td>
+                                    <td>5.4</td>
+                                    <td><span class="status-badge status-atrisk">Below</span></td>
+                                </tr>
+                                <tr style="background: rgba(219, 39, 119, 0.05);">
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar">S</div>
+                                        <span class="font-bold">Saba (Manager)</span>
+                                    </td>
+                                    <td class="font-bold">€4,967</td>
+                                    <td>€5,600</td>
+                                    <td><span style="color: var(--warning); font-weight: 700;">88.7%</span></td>
+                                    <td>21</td>
+                                    <td>€236</td>
+                                    <td>5.8</td>
+                                    <td><span class="status-badge status-atrisk">Below</span></td>
+                                </tr>
+                                <tr style="background: var(--primary-light); font-weight: 800;">
+                                    <td>STORE TOTAL</td>
+                                    <td>€28,797</td>
+                                    <td>€28,000</td>
+                                    <td><span style="color: var(--success);">102.8%</span></td>
+                                    <td>120</td>
+                                    <td>€240</td>
+                                    <td>5.9</td>
+                                    <td><span class="status-badge status-exceeding">On Target</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: Monthly Reports (Manager Only) -->
+            <div id="view-monthly-reports" class="view-section">
+                <div class="card animate-in">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-dark);">February 2026 - Month to Date</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Artist</th>
+                                    <th>MTD Revenue</th>
+                                    <th>Month Target</th>
+                                    <th>Progress</th>
+                                    <th>Best Week</th>
+                                    <th>Trend</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #34d399, #10b981);">V</div>
+                                        <span class="font-bold">Vera</span>
+                                    </td>
+                                    <td class="font-bold">€19,740</td>
+                                    <td>€22,400</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <span style="color: var(--success); font-weight: 700;">88.1%</span>
+                                            <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                <div style="width: 88%; height: 100%; background: var(--success); border-radius: 3px;"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Week 6 (€6,580)</td>
+                                    <td>📈</td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #c084fc, #a855f7);">V</div>
+                                        <span class="font-bold">Vincent</span>
+                                    </td>
+                                    <td class="font-bold">€18,720</td>
+                                    <td>€22,400</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <span style="color: var(--success); font-weight: 700;">83.6%</span>
+                                            <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                <div style="width: 84%; height: 100%; background: var(--success); border-radius: 3px;"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Week 6 (€6,240)</td>
+                                    <td>📈</td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">N</div>
+                                        <span class="font-bold">Nazarin</span>
+                                    </td>
+                                    <td class="font-bold">€17,670</td>
+                                    <td>€22,400</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <span style="color: var(--warning); font-weight: 700;">78.9%</span>
+                                            <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                <div style="width: 79%; height: 100%; background: var(--warning); border-radius: 3px;"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Week 6 (€5,890)</td>
+                                    <td>📊</td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">E</div>
+                                        <span class="font-bold">Emina</span>
+                                    </td>
+                                    <td class="font-bold">€15,360</td>
+                                    <td>€22,400</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <span style="color: var(--warning); font-weight: 700;">68.6%</span>
+                                            <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                <div style="width: 69%; height: 100%; background: var(--warning); border-radius: 3px;"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Week 5 (€5,440)</td>
+                                    <td>📉</td>
+                                </tr>
+                                <tr style="background: rgba(219, 39, 119, 0.05);">
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar">S</div>
+                                        <span class="font-bold">Saba</span>
+                                    </td>
+                                    <td class="font-bold">€14,901</td>
+                                    <td>€22,400</td>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <span style="color: var(--warning); font-weight: 700;">66.5%</span>
+                                            <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                <div style="width: 67%; height: 100%; background: var(--warning); border-radius: 3px;"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Week 6 (€4,967)</td>
+                                    <td>📉</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: Coaching (Manager Only) -->
+            <div id="view-coaching" class="view-section">
+                <div class="dashboard-grid grid-2 animate-in">
+                    <div class="card" style="border-left: 4px solid var(--warning);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="agent-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6); width: 56px; height: 56px; font-size: 1.25rem;">E</div>
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem;">Emina - Coaching Required</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Week 6: 91.4% to target | Trending down</p>
+                            </div>
+                        </div>
+                        
+                        <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--warning); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+                            <div style="font-weight: 700; color: var(--warning); margin-bottom: 0.25rem;">Performance Alert</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Below target for 2 consecutive weeks. ATV good (€233) but transaction count low.</div>
+                        </div>
+
+                        <h4 style="margin-bottom: 1rem; color: var(--primary-dark);">Recommended Actions:</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem;">
+                                <span>📞</span> Increase client consultations
+                            </li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem;">
+                                <span>🎯</span> Focus on upselling techniques
+                            </li>
+                            <li style="padding: 0.5rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                                <span>📚</span> Review product knowledge
+                            </li>
+                        </ul>
+
+                        <button class="btn-small btn-small-primary" style="width: 100%; margin-top: 1rem;">
+                            Schedule Coaching Session
+                        </button>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--success);">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="agent-avatar" style="background: linear-gradient(135deg, #34d399, #10b981); width: 56px; height: 56px; font-size: 1.25rem;">V</div>
+                            <div>
+                                <h3 style="margin-bottom: 0.25rem;">Vera - Top Performer</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Week 6: 117.5% to target | Consistently strong</p>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--success); padding: 1rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem;">
+                            <div style="font-weight: 700; color: var(--success); margin-bottom: 0.25rem;">Exceeding Expectations</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Highest ATV (€244) and strong IPT (6.1). Consider for mentorship role.</div>
+                        </div>
+
+                        <h4 style="margin-bottom: 1rem; color: var(--primary-dark);">Recognition Options:</h4>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn-small btn-small-primary" style="flex: 1;">Assign as Mentor</button>
+                            <button class="btn-small btn-small-secondary" style="flex: 1;">Send Recognition</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: Artists Summary (Manager Only) -->
+            <div id="view-artists-summary" class="view-section">
+                <div class="card animate-in">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-dark);">All Artists Overview</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Artist</th>
+                                    <th>Current Week</th>
+                                    <th>MTD Revenue</th>
+                                    <th>Month Target</th>
+                                    <th>Overall %</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #34d399, #10b981);">V</div>
+                                        <div>
+                                            <div class="font-bold">Vera</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-muted);">Top Performer</div>
+                                        </div>
+                                    </td>
+                                    <td>€6,580</td>
+                                    <td>€19,740</td>
+                                    <td>€22,400</td>
+                                    <td><span style="color: var(--success); font-weight: 700;">88.1%</span></td>
+                                    <td><span class="status-badge status-exceeding">On Track</span></td>
+                                    <td><button class="btn-small btn-small-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #c084fc, #a855f7);">V</div>
+                                        <div>
+                                            <div class="font-bold">Vincent</div>
+                                        </div>
+                                    </td>
+                                    <td>€6,240</td>
+                                    <td>€18,720</td>
+                                    <td>€22,400</td>
+                                    <td><span style="color: var(--success); font-weight: 700;">83.6%</span></td>
+                                    <td><span class="status-badge status-ontrack">On Track</span></td>
+                                    <td><button class="btn-small btn-small-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">N</div>
+                                        <div>
+                                            <div class="font-bold">Nazarin</div>
+                                        </div>
+                                    </td>
+                                    <td>€5,890</td>
+                                    <td>€17,670</td>
+                                    <td>€22,400</td>
+                                    <td><span style="color: var(--warning); font-weight: 700;">78.9%</span></td>
+                                    <td><span class="status-badge status-atrisk">Needs Focus</span></td>
+                                    <td><button class="btn-small btn-small-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Coach</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">E</div>
+                                        <div>
+                                            <div class="font-bold">Emina</div>
+                                        </div>
+                                    </td>
+                                    <td>€5,120</td>
+                                    <td>€15,360</td>
+                                    <td>€22,400</td>
+                                    <td><span style="color: var(--warning); font-weight: 700;">68.6%</span></td>
+                                    <td><span class="status-badge status-atrisk">At Risk</span></td>
+                                    <td><button class="btn-small btn-small-primary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Coach</button></td>
+                                </tr>
+                                <tr style="background: rgba(219, 39, 119, 0.05);">
+                                    <td class="agent-cell">
+                                        <div class="agent-avatar">S</div>
+                                        <div>
+                                            <div class="font-bold">Saba (You)</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-muted);">Manager</div>
+                                        </div>
+                                    </td>
+                                    <td>€4,967</td>
+                                    <td>€14,901</td>
+                                    <td>€22,400</td>
+                                    <td><span style="color: var(--warning); font-weight: 700;">66.5%</span></td>
+                                    <td><span class="status-badge status-atrisk">Below</span></td>
+                                    <td><button class="btn-small btn-small-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Self Review</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACCESS DENIED VIEW (For agents trying to access manager views) -->
+            <div id="view-access-denied" class="view-section">
+                <div class="access-denied animate-in">
+                    <div class="access-denied-icon">🚫</div>
+                    <h2 style="margin-bottom: 1rem;">Access Denied</h2>
+                    <p style="margin-bottom: 1.5rem;">You don't have permission to view this section.<br>This area is restricted to Manager access only.</p>
+                    <button class="btn-small btn-small-primary" onclick="switchView('daily-entry')">
+                        Return to Daily Entry
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // User Database (Demo)
+        const users = {
+            'saba': { password: 'manager123', role: 'manager', name: 'Saba', displayName: 'Saba (Manager)' },
+            'vincent': { password: 'artist123', role: 'agent', name: 'Vincent', displayName: 'Vincent' },
+            'nazarin': { password: 'artist123', role: 'agent', name: 'Nazarin', displayName: 'Nazarin' },
+            'emina': { password: 'artist123', role: 'agent', name: 'Emina', displayName: 'Emina' },
+            'vera': { password: 'artist123', role: 'agent', name: 'Vera', displayName: 'Vera' }
+        };
+
+        // Current User State
+        let currentUser = null;
+        let selectedRole = 'agent';
+
+        // Role Selection
+        function selectRole(role) {
+            selectedRole = role;
+            document.querySelectorAll('.role-option').forEach(el => el.classList.remove('selected'));
+            document.getElementById('role' + role.charAt(0).toUpperCase() + role.slice(1)).classList.add('selected');
+            
+            if (role === 'manager') {
+                document.getElementById('agentSelectGroup').style.display = 'none';
+                document.getElementById('managerNameGroup').style.display = 'block';
+                document.getElementById('username').value = 'saba';
+            } else {
+                document.getElementById('agentSelectGroup').style.display = 'block';
+                document.getElementById('managerNameGroup').style.display = 'none';
+                document.getElementById('username').value = '';
+            }
+        }
+
+        // Update login credentials based on artist selection
+        function updateLoginCredentials() {
+            const artist = document.getElementById('artistSelect').value;
+            if (artist) {
+                document.getElementById('username').value = artist;
+            }
+        }
+
+        // Handle Login
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.toLowerCase();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            if (users[username] && users[username].password === password) {
+                // Check if role matches
+                if (users[username].role !== selectedRole) {
+                    errorDiv.innerHTML = '<span>⚠️</span><span>Selected role does not match user account</span>';
+                    errorDiv.classList.add('show');
+                    return;
+                }
+                
+                // Successful login
+                currentUser = {
+                    username: username,
+                    ...users[username]
+                };
+                
+                errorDiv.classList.remove('show');
+                initializeApp();
+            } else {
+                errorDiv.innerHTML = '<span>⚠️</span><span>Invalid username or password</span>';
+                errorDiv.classList.add('show');
+            }
+        }
+
+        // Initialize App After Login
+        function initializeApp() {
+            // Hide login, show app
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('appContainer').classList.add('show');
+            
+            // Update sidebar user info
+            document.getElementById('sidebarUserName').textContent = currentUser.displayName;
+            document.getElementById('sidebarUserRole').textContent = currentUser.role === 'manager' ? 'Store Manager' : 'Beauty Artist';
+            document.getElementById('sidebarRoleBadge').textContent = currentUser.role.toUpperCase();
+            
+            // Show/hide manager navigation
+            if (currentUser.role === 'manager') {
+                document.getElementById('managerNavSection').classList.remove('hidden');
+            } else {
+                document.getElementById('managerNavSection').classList.add('hidden');
+                // Hide manager-only nav items
+                document.querySelectorAll('.manager-only').forEach(el => el.style.display = 'none');
+            }
+            
+            // Set initial view
+            switchView('daily-entry');
+        }
+
+        // View Switching with Access Control
+        function switchView(viewName) {
+            // Check access permissions
+            const managerViews = ['team-dashboard', 'weekly-reports', 'monthly-reports', 'coaching', 'artists-summary'];
+            
+            if (managerViews.includes(viewName) && currentUser.role !== 'manager') {
+                viewName = 'access-denied';
+            }
+            
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected view
+            const targetView = document.getElementById('view-' + viewName);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const activeNav = document.getElementById('nav' + viewName.split('-').map((word, i) => 
+                i === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(''));
+            
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+            
+            // Update header
+            const titles = {
+                'daily-entry': ['Daily Sales Entry', 'Enter your sales for today'],
+                'my-performance': ['My Performance', 'Your weekly and monthly stats'],
+                'team-dashboard': ['Team Dashboard', 'Store performance overview'],
+                'weekly-reports': ['Weekly Reports', 'All artists week performance'],
+                'monthly-reports': ['Monthly Reports', 'Month-to-date progress'],
+                'coaching': ['Coaching Center', 'Team development and training'],
+                'artists-summary': ['All Artists', 'Complete team overview'],
+                'access-denied': ['Access Denied', 'Restricted area']
+            };
+            
+            if (titles[viewName]) {
+                document.getElementById('pageTitle').textContent = titles[viewName][0];
+                document.getElementById('pageSubtitle').textContent = titles[viewName][1];
+            }
+        }
+
+        // Add Transaction Row
+        function addTransaction() {
+            const container = document.getElementById('transactionsContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'transaction-row';
+            newRow.innerHTML = `
+                <button class="remove-transaction" onclick="this.parentElement.remove()">×</button>
+                <div class="form-row">
+                    <div class="form-field" style="grid-column: 1 / -1;">
+                        <label>Customer / Notes</label>
+                        <input type="text" placeholder="e.g., Walk-in, Appointment">
+                    </div>
+                </div>
+                <div class="product-grid">
+                    ${['Skin', 'MC', 'Complexion', 'Foundation', 'HFF', 'Colours', 'Lipstick', 'Mascara', 'Fragrance', 'GWP', 'QT', 'WIN', 'G&G', 'Prebook'].map(cat => `
+                        <div class="product-input">
+                            <label>${cat}</label>
+                            <input type="number" placeholder="Units" class="qty-input" value="0">
+                            <input type="number" placeholder="€" class="rev-input" value="0">
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(newRow);
+        }
+
+        // Save Draft
+        function saveDraft() {
+            alert('💾 Draft saved! Your entries are stored locally.');
+        }
+
+        // Submit Day
+        function submitDay() {
+            if (confirm('✓ Submit today\'s sales data? This will update your weekly and monthly reports.')) {
+                alert('Success! Your daily entries have been submitted and will be compiled into reports.');
+            }
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            document.getElementById('appContainer').classList.remove('show');
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('loginForm').reset();
+            document.getElementById('loginError').classList.remove('show');
+            
+            // Reset role selection
+            selectRole('agent');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pre-select agent role
+            selectRole('agent');
+        });
+    </script>
+</body>
+</html>
